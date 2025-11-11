@@ -940,6 +940,25 @@ const builtInMetadata = (Setting: typeof SettingType) => {
 			isGlobal: true,
 		},
 
+		'editor.mobile.openInMode': {
+			value: 'view',
+			type: SettingItemType.String,
+			section: 'note',
+			isEnum: true,
+			public: true,
+			appTypes: [AppType.Mobile],
+			label: () => _('Open notes in'),
+			description: () => _('Initial mode when opening a note'),
+			options: () => {
+				return {
+					view: _('View'),
+					edit: _('Edit'),
+				};
+			},
+			storage: SettingStorage.File,
+			isGlobal: true,
+		},
+
 		newTodoFocus: {
 			value: 'title',
 			type: SettingItemType.String,

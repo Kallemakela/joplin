@@ -269,6 +269,7 @@ class NoteScreenComponent extends BaseScreenComponent<ComponentProps, State> imp
 			}
 
 			if (this.state.mode === 'edit') {
+				// NOTE: Edit this to skip view mode on the way back as well
 				Keyboard.dismiss();
 
 				this.setState({
@@ -576,6 +577,17 @@ class NoteScreenComponent extends BaseScreenComponent<ComponentProps, State> imp
 		shared.installResourceHandling(this.refreshResource);
 
 		await shared.initState(this);
+
+		// Apply initial editor mode based on setting when the screen mounts
+		try {
+			const openInMode = Setting.value('editor.mobile.openInMode');
+			if (openInMode === 'edit' && this.state.mode !== 'edit') {
+				this.doFocusUpdate_ = true;
+				this.setState({ mode: 'edit' });
+			}
+		} catch (_e) {
+			// Ignore if setting is unavailable
+		}
 
 		this.undoRedoService_ = new UndoRedoService();
 		this.undoRedoService_.on('stackChange', this.undoRedoService_stackChange);
