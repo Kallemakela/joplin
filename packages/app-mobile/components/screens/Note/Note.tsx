@@ -269,7 +269,6 @@ class NoteScreenComponent extends BaseScreenComponent<ComponentProps, State> imp
 			}
 
 			if (this.state.mode === 'edit') {
-				// NOTE: Edit this to skip view mode on the way back as well
 				Keyboard.dismiss();
 
 				this.setState({
